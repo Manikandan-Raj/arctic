@@ -29,6 +29,7 @@ class ReadS3Data:
 
     def load_env_variables(self):
         self.s3_bucket_name = str(os.environ["S3_BUCKET_NAME"])
+        self.s3_bucket_prefix = str(os.environ["S3_BUCKET_PREFIX"])
         if self.s3_bucket_name is None:
             self.logger.info("S3 Bucket name needs to be passed. can't proceed further")
 
@@ -131,7 +132,7 @@ class ReadS3Data:
             "CS_All" : self.csall
         }
         for item in folder:
-            response = self.s3_object.list_objects(Bucket=self.s3_bucket_name, Prefix="Sumo_for_MISP/" + item + "/",
+            response = self.s3_object.list_objects(Bucket=self.s3_bucket_name, Prefix=self.s3_bucket_prefix + item + "/",
                                                    Delimiter="/")
             if "CommonPrefixes" in response:
                 common_prefixes = response["CommonPrefixes"]
