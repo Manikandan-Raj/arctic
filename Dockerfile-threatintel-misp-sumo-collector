@@ -1,0 +1,6 @@
+FROM python:3.9.12-slim-buster
+LABEL Maintainer="manikandan.rajappan"
+WORKDIR src
+ADD misp-sumo-collector/src /src
+RUN pip install -r requirements.txt
+CMD ["python", "read_s3_data.py"]
